@@ -137,7 +137,7 @@ const SummaryPg =({closeSumPg})=>{
                 <div className="A-container">
                     <div className="add">
                         <p><b>Home</b></p>
-                        <div><img src="/images/tick.svg"></img></div>
+                        <div><img src="/images/tick.svg" alt=""></img></div>
                     </div>
                     {/* <p>{orderFinalDetail.storeInfo !=="" ?
                         JSON.parse(orderFinalDetail.storeInfo).address :""
