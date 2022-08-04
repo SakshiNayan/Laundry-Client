@@ -5,12 +5,12 @@
     top: -1.5px;
     left: 0px;
     width: 49px;
-    height: 931px
+    height: 931px;
     /* height: 100%; */
 }
 .home{
     padding-left: 13px;
-    padding-top: 30px;
+    padding-top: 0px;
 }
 .plus{
     padding-left: 13px;

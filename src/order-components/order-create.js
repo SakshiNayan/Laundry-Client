@@ -5,7 +5,7 @@ import SummaryPg from "./summaryPg";
 import ItemRows from "./productRows";
 import HeaderP2 from "./headerP2";
 import SideBar from "./sidebar"
-// import Footer from "./footerP2";
+import FooterSecond from "./footerP2";
 
 const OrderBody = ()=>{
 const [sumpop, setSumpopUp] = useState(false);
@@ -84,7 +84,6 @@ React.useEffect(()=>{
     <div id="orderPg">
       <div className="container">
           <p className="orderno">Create Order</p>
-    
           <div className="searchBox">
               <img className='magnifine' src="/images/search.png" alt=""/>
               <input id="searchInput" type='text' />
@@ -119,7 +118,7 @@ React.useEffect(()=>{
    
     {sumpop && <SummaryPg closeSumPg={setSumpopUp}/>}
      <SideBar/>
-        {/* <Footer/> */}
+        <FooterSecond/>
    
     </>
   )

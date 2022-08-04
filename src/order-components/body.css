@@ -1,34 +1,38 @@
 .content{
     top: 119px;
     left: 106px;
-    width: 1330px;
-    height: 900px;
-    margin-top: 30px;
+    width: 1370px;
+    height: 931px;
+    margin-top: 25px;
     float: right;
+    margin-left: -200px;
     /* border: 2px solid gray; */
 }
 .orderno{
     text-align: left;
+    width: 1360px;
     margin-top: -10px;
-    margin-left: 20px;
-    font: normal normal 600 18px/48px Open Sans;
+    margin-left: 100px;
+    font: normal normal 600 18px/48px Open;
     font-family: sans-serif;
     letter-spacing: 0px;
     color: #1E2022;
     text-transform: capitalize;
     opacity: 1;
+    /* border: 2px solid gray; */
 }
-.c1{
+.create_search{
     float: right;
     margin-top: -45px;
+    /* border: 2px solid gray; */
 }
 .search{
-    padding-left: 20px;
-    /* background: url("../image/search.svg") no-repeat left; */
+    /* padding-left: 20px; */
+    /* background: url("/images/search.png") no-repeat left; */
     border: none;
     border-bottom: 2px solid rgb(184, 182, 182);
 }
-.magnifine{
+.magnifines{
     position: relative;
     left: 20px;
     width: 1rem;
