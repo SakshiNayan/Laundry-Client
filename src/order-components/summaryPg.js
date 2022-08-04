@@ -85,46 +85,46 @@ const SummaryPg =({closeSumPg})=>{
                 </div>
             </div>
             
-            <div className="orderDetail">
-                <div><p><b>Order Detail</b></p></div>
+            <div className="orderDetails">
+                <div className="ord"><p><b>Order Detail</b></p></div>
                     {/* {orderDetail.map(item =>(<Totalorder  info={item} key={item.name} />))} */}
                     
-                    <div className="o-d">
-                        <ul type="none" className="o_d">
-                            <li className="item_n">
+                    <div className="o-ds">
+                        <ul type="none" className="o_ds">
+                            <li className="item_ns">
                                 Shirt
                             </li>
-                            <li className="item_t"><em>Washing, Ironing</em></li>
-                            <li className="item_p">
+                            <li className="item_ts"><em>Washing, Ironing</em></li>
+                            <li className="item_ps">
                                 5 X 20 = <p>100</p>
                             </li>
                         </ul>
                     </div>
-                    <div className="o-d">
-                        <ul type="none" className="o_d">
-                            <li className="item_n">
+                    <div className="o-ds">
+                        <ul type="none" className="o_ds">
+                            <li className="item_ns">
                                 Jeans
                             </li>
-                            <li className="item_t"><em>Washing, Ironing</em></li>
-                            <li className="item_p">
+                            <li className="item_ts"><em>Washing, Ironing</em></li>
+                            <li className="item_ps">
                                 5 X 30 = <p>150</p>
                             </li>
                         </ul>
                     </div>
-                    <div className="o-d">
-                        <ul type="none" className="o_d">
-                            <li className="item_n">
+                    <div className="o-ds">
+                        <ul type="none" className="o_ds">
+                            <li className="item_ns">
                                 Joggers
                             </li>
-                            <li className="item_t"><em>Chemical Wash</em></li>
-                            <li className="item_p">
+                            <li className="item_ts"><em>Chemical Wash</em></li>
+                            <li className="item_ps">
                                 2 X 100 = <p>200</p>
                             </li>
                         </ul>
                     </div>
-                    <div className="sub_t">
+                    <div className="sub_ts">
                         <p>Sub Total : 450</p>
-                        <p className="pick">Pickup Charges : 90</p>
+                        <p className="picks">Pickup Charges : 90</p>
                     </div>
                     <div className="total">
                         <p>Total:     Rs 560</p>
@@ -133,10 +133,10 @@ const SummaryPg =({closeSumPg})=>{
             </div>
             
             <div className="userAdd">
-                <p><b>Address</b></p>
+                <p id="use_Add"><b>Address</b></p>
                 <div className="A-container">
                     <div className="add">
-                        <p><b>Home</b></p>
+                        <p className="ho"><b>Home</b></p>
                         <div><img src="/images/tick.svg" alt=""></img></div>
                     </div>
                     {/* <p>{orderFinalDetail.storeInfo !=="" ?

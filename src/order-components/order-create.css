@@ -38,10 +38,10 @@
 }
 
 #product{
-    top: 177px;
-    left: 108px;
-    width: 1330px;
-    height: 530px;
+  top: 176px;
+  left: 108px;
+  width: 1295px;
+  height: 50px;
     /* UI Properties */
     background: #FFFFFF 0% 0% no-repeat padding-box;
     /* border: 1px solid #E0E0E0; */
@@ -49,16 +49,13 @@
     opacity: 1;
     float: right;
     margin-top: 40px;
-    margin-right: 20px;
-    
+    margin-right: -20px;
 }
 #head-row{
     background-color: #2F2F2F;
     color: #FFFFFF;
     display: flex;
     height: 60px;
-    
-    
 }
 .B-container {
     display: flex;

@@ -21,9 +21,9 @@ const Footer = () => {
       <div className='columns'>
         <div className='M-heading'>social media</div><div>
           <div className='footer-images'>
-          <img className='img-footer' alt='facebook' src='images/facebook.png'/>
-          <img className='img-footer' alt='instagram' src='images/instagram.png'/>
-          <img className='img-footer' alt='linkedin' src='images/linkedin.png'/>
+          <img className='img-footer' alt='facebook' src='images/facebook.svg'/>
+          <img className='img-footer' alt='instagram' src='images/instagram.svg'/>
+          <img className='img-footer' alt='linkedin' src='images/linkedin.svg'/>
           </div>
           </div></div>
 
