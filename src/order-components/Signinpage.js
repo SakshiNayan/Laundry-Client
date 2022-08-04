@@ -14,7 +14,11 @@ const Signinpage = () => {
         <div id='Doorstep-signin'>Doorstep Wash & Dryclean Service</div>
         <div id='Account-signin'>Don't Have An Account?</div>
         <div id='vertical-div-signin'></div>
-        <Link to="/Register"><button id="button-signinpage">Register</button></Link>
+
+
+        <Link to="/Register">
+        <button id="button-signinpage">Register</button></Link>
+
         <Signin/>
         <Refercomp/>
         <Footer/>

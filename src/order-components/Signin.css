@@ -20,9 +20,8 @@
     text-transform: uppercase;
     opacity: 1;
 }
-#User-signin{
 
-}
+
 .signin-inputs-fields{
     margin:250px 0px 0px 130px;
 
@@ -39,7 +38,18 @@
     color: #5861AE;
     opacity: 1;
 }
+
+
+.pass{
+    display: flex;
+}
+.padlock{
+    margin-top: 10px;
+    margin-left: 180px;
+}
 .signin-blueline{
+    display: flex;
+
 width: 398px;
 height: 1.5px;
 background-color: #5861AE;
