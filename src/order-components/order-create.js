@@ -16,7 +16,7 @@ const ProductArray = [
       image: "shirt.jpg",
     },
     {
-      name: "T-shirt",
+      name: "T-Shirts",
       image: "t-shirt.jpg",
     },
     {
@@ -52,20 +52,20 @@ for(let i=0; i< ProductArray.length;i++){
 const [orderDetails ,setOrderDetails] = React.useState(initialState);
 const [modifyOrderDetail , setModifyOrderDetail] =React.useState([]);
 
-// const handleProceed=()=>{
-//   if(modifyOrderDetail.length !==0){
-//     setSumpopUp(prevState =>({...prevState, sumpop:true}))
-//   }else{
-//     alert("Please Select some items")
-//   }
-// }
+const handleProceed=()=>{
+  if(modifyOrderDetail.length !==0){
+    setSumpopUp(prevState =>({...prevState, sumpop:true}))
+  }else{
+    alert("Please Select some items")
+  }
+}
 
 React.useEffect(()=>{
   //console.log(orderDetails)
   //console.log(modifyOrderDetail);
   setModifyOrderDetail([]);
   Object.keys(orderDetails).forEach(key => {
-    console.log(modifyOrderDetail);
+    // console.log(modifyOrderDetail);
     let obj ={};
     if(orderDetails[key].price !==0){
       obj.name =key;
@@ -108,15 +108,15 @@ React.useEffect(()=>{
           
           <div className="B-container">
               <button className="button">Cancel</button>
-              {/* <button className="button"onClick={() => handleProceed()}>Proceed</button> */}
-              <button className="button"onClick={()=>{setSumpopUp(true)}}>Proceed</button>
+              <button className="button"onClick={() => handleProceed()}>Proceed</button>
+              {/* <button className="button"onClick={()=>{setSumpopUp(true)}}>Proceed</button> */}
           </div>   
           
 
       </div>
     </div>
    
-    {sumpop && <SummaryPg closeSumPg={setSumpopUp}/>}
+    {sumpop && <SummaryPg closeSumPg={setSumpopUp} orderDetails={modifyOrderDetail}/>}
      <SideBar/>
         <FooterSecond/>
    

@@ -18,7 +18,9 @@ if(data.Password.length && data.User.length){
 axios.post("http://localhost:3001/Signin",data).then((loginData)=>{
   localStorage.setItem("authorization",loginData.data.Authtoken) 
   // console.log(localStorage.getItem("authorization"))
+
   localStorage.setItem("Username", loginData.data.username)
+
 navigate("/create")
 })
 .catch((err)=>{
@@ -59,7 +61,10 @@ setdata({...data,[id]:e.target.value})
      <form>
       <div className='signin-inputs-fields'>
       <div className='signin-inputs'>
+
+
       <label>Mobile/Email</label>
+
       <input required type="email/number" id="User" onChange={(e)=>handleinput(e,"User")}/>
       {emailvalidity && <div className='signin-blueline'></div>}
       {!emailvalidity && 
@@ -70,8 +75,11 @@ setdata({...data,[id]:e.target.value})
       </div>
       <div className='signin-inputs'>
       <label id='Password-signin'>Password</label>
+
+
       <div className='pass'><input required type="password" id='Password-s' onChange={(e)=>handleinput(e,"Password")}/>
       <img src='images/padlock.svg' alt='padlock' style={{width: "20px", height: "20px"}} className="padlock"/></div>
+
       {passwordvalidity && <div className='signin-blueline'></div>}
       {!passwordvalidity &&
        <>

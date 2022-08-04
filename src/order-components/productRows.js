@@ -2,18 +2,20 @@ import React from 'react'
 import "./order-create.css"
 
 const ItemRows = (props) => {
-  // console.log(props)
+ 
   const [itemPriceDetail, setItemPriceDetail] =React.useState({
     itemPrice :0,
-    PerItemPrice :0
+    PerItemPrice :0,
   })
   const handleChange =(e)=>{
     const {value} =e.target;
+    
     props.setOrderDetails(prevDetail =>{
       return {...prevDetail, [props.info.name]: {...prevDetail[props.info.name], quantity: value}}
     })
   }
   const handleImageClick=(e)=>{
+    
     let index = Number(e.target.attributes.index.value)
     props.setOrderDetails(prevDetail =>{
       let newWashType =[...prevDetail[props.info.name].washType];
@@ -22,53 +24,71 @@ const ItemRows = (props) => {
         ...prevDetail,[props.info.name]:{...prevDetail[props.info.name], washType:newWashType}
       }
     })
+    console.log(props.orderDetails[props.info.name])
     
   }
+
   const typePrice ={
-    Shirts :[10, 10, 15, 20],
-    TShirts : [10, 10, 15, 20],
+    Shirt :[10, 10, 15, 20],
+    "T-Shirts" : [10, 10, 15, 20],
     Trousers : [15, 15, 20, 25],
     Jeans : [20, 20, 25, 30],
     Boxers : [15, 15, 20, 25],
     Joggers : [20, 20, 25, 30],
     Others : [25, 25, 30, 30],
   }
+//   const Prices =new Map([
+//     ["Shirt" ,[10, 10, 15, 20]],
+//   ["T-Shirts" , [10, 10, 15, 20]] ,
+//    ["Trousers" , [15, 15, 20, 25]],
+//   [ "Jeans", [20, 20, 25, 30]],
+//    ["Boxers" , [15, 15, 20, 25]],
+//    ["Joggers" , [20, 20, 25, 30]],
+//    ["Others" , [25, 25, 30, 30]],
+// ])
 
-  function CalculateEachItemPrice(){
-    let pricePerItem = 0, prices = 0;
-    props.orderDetails[props.info.name].washType.map((val ,i)=>{
-      prices += typePrice[props.info.name][i] * val * Number(props.orderDetails[props.info.name].quantity);
-      pricePerItem += typePrice[props.info.name][i] * val;
-      // console.log(typePrice[props.info.name][i])
-      // console.log( Number(props.orderDetails[props.info.name].quantity),"Number")
-      // console.log(val)
+const CalculatorPrice =()=>{
+
+  let pricePerItem=0, itemPriceTotal=0;
+  props.orderDetails[props.info.name].washType.map((val,i)=>{
+  pricePerItem += Number(val) * typePrice[props.info.name][i];
+})
+  itemPriceTotal = pricePerItem * Number(props.orderDetails[props.info.name].quantity)
+  console.log(itemPriceTotal);
+
+  return [pricePerItem, itemPriceTotal];
+}
+    
+React.useEffect (()=>{
+  //CalculatorPrice();
+  let [PerItemPrice , itemPrice] =CalculatorPrice();
+  //console.log(itemPrice ,PerItemPrice);
+  setItemPriceDetail({
+    itemPrice :itemPrice,
+    PerItemPrice :PerItemPrice,
+  })
+  console.log(itemPriceDetail)
+  props.setOrderDetails(prevDetail =>({...prevDetail, [props.info.name]: {...prevDetail[props.info.name], price : itemPrice}}))
+},[...props.orderDetails[props.info.name].washType, props.orderDetails[props.info.name].quantity])  
+
+
+  function HandleReset(){
+    setItemPriceDetail({
+      itemPrice :0,
+      PerItemPrice :0,
     })
-    return [pricePerItem , prices];
-  }
-
-  // React.useEffect(()=>{
-  //   let [itemPrice ,  PerItemPrice]= CalculateEachItemPrice();
-  //   setItemPriceDetail({
-  //     itemPrice :itemPrice,
-  //     PerItemPrice : PerItemPrice
-  //   })})
-  //   props.setOrderDetails(prevDetail =>({...prevDetail,[props.info.name]: {...prevDetail[props.info.name], prices :itemPrice}}))
-  // }, [...props.orderDetails[props.info.name].washType, props.orderDetails[props.info.name].quantity]);
-
-  const HandleReset =()=>{
     props.setOrderDetails(prevDetail =>({...prevDetail, [props.info.name]: {
-      quantity :"",
-      washType :[0, 0, 0, 0],
-      price :0,
-    }}));
-    props.setModifyOrderDetail([])
+          quantity :"",
+          washType :[0, 0, 0, 0],
+          price :0,
+        }}));
   }
 
   return(
     <>
     <div id="item-row">
       <div className="imageDivision">
-        <img  className="itemImg"  src={`/images/${props.info.image}`}/>
+        <img  className="itemImg"  src={`/images/${props.info.image}`} alt=""/>
         <div className="para">
           <p><b>{props.info.name}</b></p>
           <p style={{ "fontSize":"11px", "color":"#76788B", "margin-top":"-5px"}}>Lorem Ispum is simple</p>
@@ -78,33 +98,34 @@ const ItemRows = (props) => {
       <div className="inputDivision">
         <div className="inputNum">
           <input className="quantityNum" type="text"
-          name='quantity' 
-          // value={props.orderDetails[props.info.name].quantity} 
+          name='quantity'
+
+          value={props.orderDetails[props.info.name].quantity} 
           style={{ border: "none" }}  
            onChange={handleChange}
           ></input>
         </div>
       </div>
       <div className="washDivision">
-        <img 
+        <img alt=""
           className="washImg" 
           index ="0"
           src={`/images/${props.orderDetails[props.info.name].washType[0] ? "blue-washing.svg" : "washing-machine.png"}`} 
           onClick={handleImageClick}
         />
-        <img 
+        <img  alt=""
           className="washImg" 
           index ="1"
           src={`/images/${props.orderDetails[props.info.name].washType[1] ? "blue-ironing.svg" : "iron.png"}`} 
           onClick={handleImageClick}
         />
-        <img 
+        <img  alt=""
           className="washImg" 
           index ="2"
           src={`/images/${props.orderDetails[props.info.name].washType[2] ? "towel.svg" : "dry-wash.png"}`} 
           onClick={handleImageClick} 
         />
-        <img 
+        <img alt=""
           className="washImg" 
           index ="3"
           src={`/images/${props.orderDetails[props.info.name].washType[3] ? "blue-bleach.svg" : "bleach.png"}`}  
@@ -116,8 +137,8 @@ const ItemRows = (props) => {
         <div>
           {itemPriceDetail.itemPrice ?
           <div className="price">
-            <div>
-              {props.orderDetails[props.info.name].quantity + "X" + itemPriceDetail.PerItemPrice} =
+            <div className='PerItemTotalPrice'>
+              {(props.orderDetails[props.info.name].quantity) + "X" + itemPriceDetail.PerItemPrice} =
             </div>
             <div className="itemPrice">
                 {itemPriceDetail.itemPrice}
