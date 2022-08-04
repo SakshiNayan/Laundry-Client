@@ -13,7 +13,7 @@ const Registerpage = () => {
     <div id='Doorstep-reg'>Doorstep Wash & Dryclean Service</div>
     <div id='Account-reg'>Don't Have Account</div>
     <div id='vertical-div-reg'></div>
-    <Link to="/Register">
+    <Link to="/Signin">
     <button id="button-regpage">Register</button></Link>
     <Header/>
     <Register/>

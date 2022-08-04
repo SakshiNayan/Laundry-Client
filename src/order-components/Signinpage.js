@@ -4,7 +4,7 @@ import Copyrightcomp from './Copyrightcomp'
 import Footer from './Footer'
 import Header from './Header'
 import Refercomp from "./Refercomp"
-import Signin from "./Signinpage"
+import Signin from "./Signin"
 import "./Signinpage.css"
 const Signinpage = () => {
   return (
@@ -14,8 +14,7 @@ const Signinpage = () => {
         <div id='Doorstep-signin'>Doorstep Wash & Dryclean Service</div>
         <div id='Account-signin'>Don't Have An Account?</div>
         <div id='vertical-div-signin'></div>
-        <Link to="/create">
-        <button id="button-signinpage">Register</button></Link>
+        <Link to="/Register"><button id="button-signinpage">Register</button></Link>
         <Signin/>
         <Refercomp/>
         <Footer/>
@@ -24,4 +23,4 @@ const Signinpage = () => {
   )
 }
 
-export default Signinpage
+export default Signinpage;

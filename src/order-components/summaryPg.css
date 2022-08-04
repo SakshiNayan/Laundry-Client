@@ -1,13 +1,14 @@
 #summaryBack{
     background-color: rgba(0, 0, 0, 0.2);
   width: 99vw;
-  height: 931px;
+  /* height: 931px; */
   /* height: 775px; */
   z-index: 0;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
+  margin-top: 50px;
 }
 #popContainer{
   float: right;
