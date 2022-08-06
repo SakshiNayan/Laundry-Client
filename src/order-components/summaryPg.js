@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import ConfirmationPop from "./confirmation";
 import './summaryPg.css';
@@ -6,31 +6,50 @@ import './summaryPg.css';
 
 
 const SummaryPg = (props) => {
-    //console.log(props.orderDetails[0].washType)
-    // const orderDetail = props.orderDetails;
-    //const [data,setpost]=useState([])
-    // useEffect(()=>{
-    //     axios.post("http//localhost:3000/create-order").then((Orderdata)=>{
-    //         // let data = Orderdata.data.images.reverse();
-    //         // //console.log(data[0])
-    //         // setpost(data)
-    //         res
-    //     })
-    //     .catch((err)=>{console.log(err)})
-    // },[])
+    // console.log(props.orderDetails)
+    const Token = localStorage.getItem("authorization")
+    // console.log(Token)
+
+    const [userData, setUserData] = useState([])
+    const [storedetails,setstoredetails]=useState(false)
+    console.log(userData)
+    useEffect(() => {
+        fetch("http://localhost:3001/userRegister/user", {
+            headers: {
+                authorization: Token,
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setUserData(data.user)
+                // console.log(data.user)
+            });
+    }, [Token]);
+
+    //   console.log(userData[0].Address[0])
+
+
+    const orderId = Math.floor(1000 + Math.random() * 1000);
+
+
+
     const [trigger, setTrigger] = useState(false);
-    const [orderFinalDetail, setOrderFinaldetail] = React.useState({
+    const [orderFinalDetail, setOrderFinaldetail] = useState({
         dateTime: "",
         storeInfo: "",
         userAddress: "",
         status: "",
         items: "",
     })
-
     if (trigger) {
         return <ConfirmationPop orderDone={setTrigger} />
     }
- 
+
+    let subTotal = 0, pickUpCharge = 90, total = 0;
+    props.orderDetails.forEach(item => {
+        subTotal += Number(item.price)
+    })
+    total = subTotal + pickUpCharge;
     const actions = [
         {
             name: "Jp Nagar",
@@ -49,26 +68,49 @@ const SummaryPg = (props) => {
         }
     ]
     const handleChange = (e) => {
+        setstoredetails(true)
         setOrderFinaldetail(prevDetail => ({ ...prevDetail, storeInfo: e.target.value }))
     }
+    
     const handleButton = (e) => {
+        // console.log(orderFinalDetail)
+
         e.preventDefault();
         //closeSumPg(false)
-        setTrigger("true");
-        console.log(trigger);
-   
-        axios.post("http://localhost:3001/product/create-order", {orderFinalDetail}).then((Orderdata)=>{
-                    console.log(Orderdata)
-                    setOrderFinaldetail(Orderdata.data)
-                })
-                .catch((err)=>{console.log(err)})
+      
+        // console.log(trigger);
+        if(storedetails){
+            axios({method:'POST',
+            url:"http://localhost:3001/product/create-order",
+                data:{
+                    userId: userData[0].Email,
+                    orderId: orderId,
+                    storeInfo:JSON.parse(orderFinalDetail.storeInfo),
+                    status: "Ready to pickup",
+                    userAddress: userData[0].Address[0],
+                    items: props.orderDetails,
+                    price: total
+                },
+                headers : {
+                 authorization: Token,
+                 "Content-Type": "application/json"
+                },
+            }).then((res) => {
+               setTrigger("true");
+           
+              }).catch((err) => {
+               console.log(err)
+              })
+        }
+else{
+    alert("Please select store Location")
+}
+       
     }
 
-    let subTotal = 0,  pickUpCharge =90, total =0;
-    props.orderDetails.forEach(item =>{
-        subTotal += Number(item.price)
-    })
-    total = subTotal + pickUpCharge;
+
+    // console.log(total)
+
 
     return (
         <>
@@ -106,33 +148,32 @@ const SummaryPg = (props) => {
                     </div>
 
                     <div className="orderDetail">
-                        <div><p><b>Order Detail</b></p></div>
-                        {props.orderDetails.map(item => (<Totalorder info={item} key={item.name} 
-                        orderDetails={props.orderDetails}/>))}
-                        
-                        <div>{subTotal}</div>
-                        <div>pickUp Charges{pickUpCharge}</div>
-                        <div>{total}</div>
+                        <div className="ord"><p><b>Order Detail</b></p></div>
+                        <div id="OrderedInfo">{props.orderDetails.map(item => (<Totalorder info={item} key={item.name}
+                            orderDetails={props.orderDetails} />))}</div>
+                        <div id="price_foot">
+                        <div className="sub_total">Sub total: <div className="Sub_val">{subTotal}</div></div>
+                        <div className="pickUp">pickUp Charges: <div className="pickUp_val">{pickUpCharge}</div></div>
+                        <div id="all_total_amout"><div className="All_amnt">Total:</div><div className="All_Total_val">{total}</div></div>
+                        </div>
 
                     </div>
 
                     <div className="userAdd">
-                        <p><b>Address</b></p>
+                        <p id="use_Add"><b>Address</b></p>
                         <div className="A-container">
                             <div className="add">
-                                <p><b>Home</b></p>
+                                <p className="ho"><b>Home</b></p>
                                 <div><img src="/images/tick.svg" alt=""></img></div>
                             </div>
-                            {/* <p>{orderFinalDetail.storeInfo !=="" ?
-                        JSON.parse(orderFinalDetail.storeInfo).address :""
-                    }</p> */}
-                            <p style={{ "margin-top": "-10px" }}>#123 10th Road ,<br></br>by pass,Banglore</p>
+                            <p className="add_u">#223, 10th road, Jp Nagar,<br></br>Bangalore</p>     
+                            
                         </div>
 
                     </div>
                     <div className="B-div">
                         {/* <button className="confirm-B" onClick={()=>{setTrigger(true)}}><div onClick={()=> closeSumPg(false)}>Confirm</div></button> */}
-                        <button className="confirm-B" onClick={handleButton} > Confirm </button>
+                        <button className="confirm-B" onClick={(e)=>handleButton(e)} > Confirm </button>
                     </div>
                 </div>
             </div>
@@ -140,14 +181,14 @@ const SummaryPg = (props) => {
     )
 }
 const Totalorder = (props) => {
-   
+
     const washType = ["washing", "ironing", "dry-wash", "bleach"];
-    console.log(props)
+    // console.log(props)
     // let subTotal = 0;
     // props.orderDetails.forEach(item =>{
     //     subTotal += Number(item.price)
     // })
-    
+
     return (
         <>
             <div id="product-cart">
@@ -155,67 +196,23 @@ const Totalorder = (props) => {
                 <div className="washType">
                     {
 
-                    props.orderDetails[0].washType.map((a, i) => {
-                        return <i key={i}>{a ? `${washType[i]}, ` : ""}</i>;
-                        
-                    })}
+                        props.orderDetails[0].washType.map((a, i) => {
+                            return <i key={i}>{a ? `${washType[i]}, ` : ""}</i>;
+
+                        })}
                 </div>
                 <div className="priceType">
-                    <div>
-                        {(props.info.quantity) + "X" + Number(props.info.price) / Number(props.info.quantity) + "=" }
+                    <div className="price_type">
+                        {(props.info.quantity) + "X" + Number(props.info.price) / Number(props.info.quantity) + "="}
                     </div>
-                    <div>{props.info.price}</div>
+                    <div className="price_total">{props.info.price}</div>
 
                 </div>
-                
+
             </div>
-            
+
         </>
     )
 }
 
 export default SummaryPg;
-
-
-
-
-/* {<div className="o-d">
-                       <ul type="none" className="o_d">
-                           <li className="item_n">
-                               Shirt
-                           </li>
-                           <li className="item_t"><em>Washing, Ironing</em></li>
-                           <li className="item_p">
-                               5 X 20 = <p>100</p>
-                           </li>
-                       </ul>
-                   </div>
-                   <div className="o-d">
-                       <ul type="none" className="o_d">
-                           <li className="item_n">
-                               Jeans
-                           </li>
-                           <li className="item_t"><em>Washing, Ironing</em></li>
-                           <li className="item_p">
-                               5 X 30 = <p>150</p>
-                           </li>
-                       </ul>
-                   </div>
-                   <div className="o-d">
-                       <ul type="none" className="o_d">
-                           <li className="item_n">
-                               Joggers
-                           </li>
-                           <li className="item_t"><em>Chemical Wash</em></li>
-                           <li className="item_p">
-                               2 X 100 = <p>200</p>
-                           </li>
-                       </ul>
-                   </div>
-                   <div className="sub_t">
-                       <p>Sub Total : 450</p>
-                       <p className="pick">Pickup Charges : 90</p>
-                   </div>
-                   <div className="total">
-                       <p>Total:     Rs 560</p>
-                   </div> }*/

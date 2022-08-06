@@ -1,7 +1,7 @@
 import React, { useState }from 'react'
 import "./Register.css"
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link , useNavigate} from 'react-router-dom'
 
 
 const Register = () => {
@@ -15,7 +15,7 @@ const Register = () => {
   const handleRegister=(e)=>{
     e.preventDefault()
     if((data.Phone+"").length===10){
-  axios.post("http://localhost:3001/Register",data)
+  axios.post("http://localhost:3001/userRegister/Register",data)
       .then(()=>{navigate("/Signin")})
     .catch((err)=>{
     if(err.response.data==="EmailExist"){

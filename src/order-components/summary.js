@@ -3,32 +3,33 @@ import './summary.css';
 import { useEffect, useState } from "react";
 import Alert from "./delete_alert";
 
-const SummaryPage = ({closeSum, props})=>{
+const SummaryPage = (props)=>{
     const [viewAlert, setAlert] = useState(false);
-    const [orderData, setOrderData] = useState([]);
-    useEffect(() => {
-        fetch('http://localhost:3004/order')
-            .then(data => data.json())
-            .then((data) => setOrderData(data))
-    }, [])
+    console.log(props.closeSum);
+    // console.log(closeSum);
     if(viewAlert){
-        return  <Alert closeAlert={setAlert}/>
+        return  <Alert viewdatasummary={props.viewdatasummary} closeAlert={setAlert}/>
     }
+    let subTotal = 0, pickUpCharge = 90, total = 0;
+    props.viewdatasummary.items.forEach(item => {
+        subTotal += Number(item.price)
+    })
+    total = subTotal + pickUpCharge;
     return(
         <>
         <div className="modalBackground">
             <div className="card">
                 <div className="h">
                 <p>Summary</p>
-                <button id="close" onClick={() => closeSum(false)}>X</button>
+                <button id="close" onClick={() => props.closeSum(false)}>X</button>
                 </div>
                 <div className="section">
                     <ul type="none">
                         <li className="Title">
-                            Store Location
+                           Store Location
                         </li>
                         <li className="Tval">
-                            Ashok Nagar
+                        {props.viewdatasummary.storeInfo.name}
                         </li>
                     </ul>
                     <ul type="none">
@@ -36,7 +37,7 @@ const SummaryPage = ({closeSum, props})=>{
                             Store Address
                         </li>
                         <li className="Tval">
-                        Near Phone booth, 10th road,
+                        {props.viewdatasummary.storeInfo.address}
                         </li>
                     </ul>
                     <ul type="none">
@@ -44,7 +45,7 @@ const SummaryPage = ({closeSum, props})=>{
                             Phone
                         </li>
                         <li className="Tval">
-                        91 999999999
+                        {props.viewdatasummary.storeInfo.phone}
                         </li>
                     </ul>
                 </div>
@@ -57,48 +58,17 @@ const SummaryPage = ({closeSum, props})=>{
                     </ul>
                 </div>
                 <div className="orderDetail">
-                    <p>Order Detail</p>
-                    <div className="o-d">
-                        <ul type="none" className="o_d">
-                            <li className="item_n">
-                                Shirt
-                            </li>
-                            <li className="item_t"><em>Washing, Ironing</em></li>
-                            <li className="item_p">
-                                5 X 20 = <p>100</p>
-                            </li>
-                        </ul>
+                        <div className="ord"><p><b>Order Detail</b></p></div>
+                        <div id="OrderedInfo"><Totalorder info={props.viewdatasummary.items} key={props.viewdatasummary.items.name}
+                            viewdatasummary={props.viewdatasummary} /></div>
+
+                        <div id="price_foot">
+                        <div className="sub_total">Sub total: <div className="Sub_val">{subTotal}</div></div>
+                        <div className="pickUp">pickUp Charges: <div className="pickUp_val">{pickUpCharge}</div></div>
+                        <div id="all_total_amout"><div className="All_amnt">Total:</div><div className="All_Total_val">{total}</div></div>
+                        </div>
+
                     </div>
-                    <div className="o-d">
-                        <ul type="none" className="o_d">
-                            <li className="item_n">
-                                Jeans
-                            </li>
-                            <li className="item_t"><em>Washing, Ironing</em></li>
-                            <li className="item_p">
-                                5 X 30 = <p>150</p>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="o-d">
-                        <ul type="none" className="o_d">
-                            <li className="item_n">
-                                Joggers
-                            </li>
-                            <li className="item_t"><em>Chemical Wash</em></li>
-                            <li className="item_p">
-                                2 X 100 = <p>200</p>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="sub_t">
-                        <p>Sub Total : 450</p>
-                        <p className="pick">Pickup Charges : 90</p>
-                    </div>
-                    <div className="total">
-                        <p>Total:     Rs 560</p>
-                    </div>
-                </div>
                 <div className="display_add">
                     <p>
                         Address
@@ -116,6 +86,41 @@ const SummaryPage = ({closeSum, props})=>{
             </div>
         </div>
         
+        </>
+    )
+}
+const Totalorder = (props) => {
+
+    const washType = ["washing", "ironing", "dry-wash", "bleach"];
+    console.log(props.viewdatasummary.items)
+    return (
+        <>
+        
+            {props.viewdatasummary.items.map((data, index)=>{
+                return(
+                    <div id="product-cart">
+                    <div className="productType">{data.name}</div>
+                    <div className="washType">
+                        {
+    
+                            props.viewdatasummary.items[index].washType.map((a, i) => {
+                                return <i key={i}>{a ? `${washType[i]}, ` : ""}</i>;
+    
+                            })}
+                    </div>
+                    <div className="priceType">
+                        <div className="price_type">
+                            {(props.viewdatasummary.items[index].quantity) + "X" + parseInt(Math.floor(props.viewdatasummary.items[index].price) / Math.floor(props.viewdatasummary.items[0].quantity)) + "="}
+                        </div>
+                        <div className="price_total">{props.viewdatasummary.items[index].price}</div>
+    
+                    </div>
+    
+                </div>
+                )
+            })}
+                   
+         
         </>
     )
 }

@@ -2,6 +2,8 @@ import React from 'react'
 import "./order-create.css"
 
 const ItemRows = (props) => {
+
+  
  
   const [itemPriceDetail, setItemPriceDetail] =React.useState({
     itemPrice :0,
@@ -24,7 +26,7 @@ const ItemRows = (props) => {
         ...prevDetail,[props.info.name]:{...prevDetail[props.info.name], washType:newWashType}
       }
     })
-    console.log(props.orderDetails[props.info.name])
+    // console.log(props.orderDetails[props.info.name])
     
   }
 
@@ -37,15 +39,7 @@ const ItemRows = (props) => {
     Joggers : [20, 20, 25, 30],
     Others : [25, 25, 30, 30],
   }
-//   const Prices =new Map([
-//     ["Shirt" ,[10, 10, 15, 20]],
-//   ["T-Shirts" , [10, 10, 15, 20]] ,
-//    ["Trousers" , [15, 15, 20, 25]],
-//   [ "Jeans", [20, 20, 25, 30]],
-//    ["Boxers" , [15, 15, 20, 25]],
-//    ["Joggers" , [20, 20, 25, 30]],
-//    ["Others" , [25, 25, 30, 30]],
-// ])
+
 
 const CalculatorPrice =()=>{
 
@@ -54,7 +48,7 @@ const CalculatorPrice =()=>{
   pricePerItem += Number(val) * typePrice[props.info.name][i];
 })
   itemPriceTotal = pricePerItem * Number(props.orderDetails[props.info.name].quantity)
-  console.log(itemPriceTotal);
+  // console.log(itemPriceTotal);
 
   return [pricePerItem, itemPriceTotal];
 }
@@ -67,7 +61,7 @@ React.useEffect (()=>{
     itemPrice :itemPrice,
     PerItemPrice :PerItemPrice,
   })
-  console.log(itemPriceDetail)
+  // console.log(itemPriceDetail)
   props.setOrderDetails(prevDetail =>({...prevDetail, [props.info.name]: {...prevDetail[props.info.name], price : itemPrice}}))
 },[...props.orderDetails[props.info.name].washType, props.orderDetails[props.info.name].quantity])  
 
@@ -136,7 +130,7 @@ React.useEffect (()=>{
       <div>
         <div>
           {itemPriceDetail.itemPrice ?
-          <div className="price">
+          <div id="price">
             <div className='PerItemTotalPrice'>
               {(props.orderDetails[props.info.name].quantity) + "X" + itemPriceDetail.PerItemPrice} =
             </div>

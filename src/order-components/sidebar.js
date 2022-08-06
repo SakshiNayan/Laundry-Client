@@ -5,9 +5,9 @@ const SideBar =()=>{
     return(
         <>
         <div className="sidebar">
-            <div className="home"><a href="/"><img src="/images/home.png" alt=""/></a></div>
-            <div className="plus"><a href="/"><img src="/images/plus.png" alt=""/></a></div>
-            <div id="content"><a href="/"><img src="/images/content.png" alt=""/></a></div>
+            <div className="home"><img src="/images/home.png" alt=""/></div>
+            <div className="plus"><img src="/images/plus.png" alt=""/></div>
+            <div id="content"><img src="/images/content.png" alt=""/></div>
 
         </div>
         </>

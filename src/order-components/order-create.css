@@ -140,7 +140,27 @@
 .washImg{
   height: 50%;
 }
-.price {
+#price {
   margin-left: 50px;
+  display: flex;
 }  
-
+.PerItemTotalPrice{
+  font-weight: bold;
+  padding-left: 5px;
+}
+.itemPrice{
+  font-weight: bold;
+  padding-left: 5px;
+  color: #5861AE;
+}
+.resetButton{
+  border: 1px solid #5861AE;
+  background-color: #FFFFFF;
+  color: #0e0e0f;
+  padding: 5px 15px;
+  margin-left: 10px;
+  border-radius: 20px;
+}
+.resetButton:hover{
+  background-color: #5861AE;
+}

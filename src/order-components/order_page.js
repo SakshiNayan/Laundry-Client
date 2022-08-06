@@ -1,23 +1,48 @@
 import React from "react";
 import "./order_page.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SummaryPage from "./summary";
 import HeaderP2 from "./headerP2";
 import SideBar from "./sidebar"
-// import Footer from "./footerP2";
+import axios from "axios";
+import FooterSecond from "./footerP2";
 
 const OrderPage = ()=>{
+    const Navigate=useNavigate();
     const [summary, setSummary] = useState(false);
     const [orderData, setOrderData] = useState([]);
+    const Authtoken=localStorage.getItem("authorization")
+    const [orderhistory,setorderhistory]=useState(false)
+    const [viewdata, setViewdata] = useState([]);
+ 
     useEffect(() => {
-        fetch('http://localhost:3004/order')
-            .then(data => data.json())
-            .then((data) => setOrderData(data))
+        if(Authtoken){
+            axios({
+                method:'GET',
+                url:'http://localhost:3001/order/create-order',
+                headers:{
+                    authorization:Authtoken
+                }
+            })
+                .then((datas) => {
+                    setorderhistory(true)
+                    setOrderData(datas.data)})
+        } else {
+            Navigate("/Signin")
+        }
+        
     }, [])
+
+    const handleView = (data) =>{
+        setViewdata(data);
+    }
+    console.log(viewdata)
     return (
         <>
+        
        <HeaderP2/>
+       {orderhistory &&
         <div className="order">
         <p className="orderv">Order | {orderData.length}</p>
         <div className="class">
@@ -62,42 +87,55 @@ const OrderPage = ()=>{
 
                     <div key={index} className="order_data">
                     <div className="order_p" style={{width: "110px"}}>
-                    {data.order_id}
+                    {data.orderId}
                     </div>
                     <div className="order_p" style={{width: "180px"}}>
-                    {data.date_time}
+                    {data.dateTime}
                     </div>
                     <div className="order_p" style={{width: "150px"}}>
-                    {data.store_location}
+                    {data.storeInfo.address}
                     </div>
                     <div className="order_p" style={{width: "120px"}}>
-                    {data.city}
+                    {data.storeInfo.name}
                     </div>
                     <div className="order_p" style={{width: "180px"}}>
-                    {data.phone_no}
+                    {data.storeInfo.phone}
                     </div>
                     <div className="order_p" style={{width: "100px"}}>
-                    {data.Total_price}
+                    {data.price}
                     </div>
                     <div className="order_p" style={{width: "90px"}}>
-                    {data.price}
+                    {data.price - 90}
                     </div>
                     <div className="order_p" style={{width: "120"}}>
                     {data.status}
-                    { data.status === "Ready to pickup" ? <div style={{color: "red"}} className="c_o">Cancle Order</div> : <div style={{color: "white"}} className="c_o"></div>}
+                    { data.status === "Ready to pickup" ? <div style={{color: "red"}} className="c_o">Cancel Order</div> : <div style={{color: "white"}} className="c_o"></div>}
                     </div>
                     <button Cancle Order
                   className="btn1" 
-                  onClick={() => setSummary(true)}><span class="material-symbols-outlined">visibility</span></button>
+                  onClick={() => setSummary(true)}><span onClick={() => handleView(data)} class="material-symbols-outlined">visibility</span></button>
                     </div>
                 )
             })}
                   
                 </div>
+        </div> }
+        {!orderhistory &&  <div className="content">
+        <p className="orderno">Order | 0</p>
+        <div className="create_search">
+        <input type="search" className="search"/>
+        <img className='magnifines' src="/images/search.png" alt=""/>
         </div>
-        { summary && <SummaryPage closeSum={setSummary}/>}
+        <div className="create_order">
+            <p>No Order Available</p>
+            <Link to ="/create-order"><button>Create</button></Link>
+        </div>
+        </div>
+        }
+        { summary && <SummaryPage viewdatasummary={viewdata} closeSum={setSummary}/>}
         <SideBar/>
-        {/* <Footer/> */}
+        <FooterSecond/>
+
         </>
     )
 

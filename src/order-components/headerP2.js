@@ -1,7 +1,16 @@
 import React from "react";
-//import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import "./headerP2.css"
 const HeaderP2 = ()=>{
+    const Navigate=useNavigate()
+    const Authtoken=localStorage.getItem("authorization");
+    const userName = localStorage.getItem("Username");
+    
+    const logoutHandler = () =>{
+        localStorage.setItem("authorization", "")
+        localStorage.setItem("Username", "")
+        Navigate("/Signin");
+    }
     return(
         <>
         <header id="header">
@@ -15,36 +24,16 @@ const HeaderP2 = ()=>{
             <div className="list2">
                 <p className="career">Career</p>
             </div>
-            {/* <Link to="./logout.js"><div className="list3">
-                <img id="Logo" src="/images/icon.jpg" alt=""/>
-                <div>
-                    <p>User Name</p>
-                </div>
-            </div></Link> */}
-            {/* <button className="userButton">
-                <div className="list3">
-                    <img id="Logo" src="/images/icon.jpg" alt=""/>
-                    <div>
-                        <p>User Name</p>
-                    </div>
-                </div>
-            </button>
-            <div class="dropdown-content">
-                <a href="#">LOG OUT</a>
-                
-            </div> */}
             <div className="dropdown">
-                {/* <button className="dropbtn">Dropdown</button> */}
                 <button className="dropbtn">
                         <div className="Imgcontain">
-                        <span><img id="Logo" src="/images/icon.jpg" alt=""/></span>
+                        <div><img id="Logo" src="/images/icon.jpg" alt=""/></div>
                         
-                        <span> User Name</span>
+                        <div id="userName">{userName}</div>
                         </div>
                 </button>
-                <div className="dropdown-content">
-                <a href="/Signin">LOG OUT</a>
-                
+                <div className="dropdown-content" onClick={()=>{logoutHandler()}}>
+                    LOG OUT
             </div>
             </div>
 
