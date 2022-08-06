@@ -20,7 +20,7 @@ const OrderPage = ()=>{
         if(Authtoken){
             axios({
                 method:'GET',
-                url:'http://localhost:3001/order/create-order',
+                url:'https://laundry-pg-server.herokuapp.com/order/create-order',
                 headers:{
                     authorization:Authtoken
                 }

@@ -15,7 +15,7 @@ const Register = () => {
   const handleRegister=(e)=>{
     e.preventDefault()
     if((data.Phone+"").length===10){
-  axios.post("http://localhost:3001/userRegister/Register",data)
+  axios.post("https://laundry-pg-server.herokuapp.com/userRegister/Register",data)
       .then(()=>{navigate("/Signin")})
     .catch((err)=>{
     if(err.response.data==="EmailExist"){
