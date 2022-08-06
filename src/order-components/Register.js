@@ -101,9 +101,9 @@ if(value.length){
       <select   required id="State-register" onChange={(e)=>handleFormData(e,"State")}>
         <option value=""></option>
       <option value="Andhra-Pradesh">Andhra-Pradesh</option>
-        <option value="Kerala">Kerala</option>
-        <option value="TamilNadu">Tamilnadu</option>
-        <option value="Karnataka">Karnataka</option>
+        <option value="Kerala">Jharkhand</option>
+        <option value="TamilNadu">Mumbai</option>
+        <option value="Karnataka">Sikkim</option>
       </select>
       <div className='blue-line-register'></div>
       </div>
@@ -111,15 +111,15 @@ if(value.length){
       <label className="Label-register" htmlFor="District-register">District</label>
       <select  required id="District-register" onChange={(e)=>handleFormData(e,"District")}>
       <option value=""></option>
-        <option value="West-Godawari">West-Godawari</option>
+        <option value="West-Godawari">Chandigarh</option>
       <option value="Malappuram">Malappuram</option>
-      <option value="Kozhikode">Kozhikode</option>
-      <option value="Ernamkulam">Ernamkulam</option>
-      <option value="Palakkad">Palakkad</option>
-      <option value="Thrissur">Thrissur</option>
+      <option value="Kozhikode">Puducherry</option>
+      <option value="Ernamkulam">DurgaPure</option>
+      <option value="Palakkad">Jamnagar</option>
+      <option value="Thrissur">Amritsar</option>
       <option value="Kannur">Kannur</option>
-      <option value="Wayanad">Wayanad</option>
-      <option value="idukki">idukki</option>
+      <option value="Wayanad">Darjeeling</option>
+      <option value="idukki">Kolkata</option>
       </select>
       <div className='blue-line-register'></div>
       </div>
