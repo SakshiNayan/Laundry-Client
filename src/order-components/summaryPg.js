@@ -14,7 +14,7 @@ const SummaryPg = (props) => {
     const [storedetails,setstoredetails]=useState(false)
     console.log(userData)
     useEffect(() => {
-        fetch("https://laundry-pg-server.herokuapp.com/userRegister/user", {
+        fetch("http://localhost:3001/userRegister/user", {
             headers: {
                 authorization: Token,
             },
@@ -81,7 +81,7 @@ const SummaryPg = (props) => {
         // console.log(trigger);
         if(storedetails){
             axios({method:'POST',
-            url:"https://laundry-pg-server.herokuapp.com/product/create-order",
+            url:"http://localhost:3001/product/create-order",
                 data:{
                     userId: userData[0].Email,
                     orderId: orderId,

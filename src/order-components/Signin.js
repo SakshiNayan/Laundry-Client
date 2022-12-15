@@ -15,7 +15,7 @@ const [data,setdata]=useState({
   const handlesubmit=(e)=>{
 e.preventDefault()
 if(data.Password.length && data.User.length){
-axios.post("https://laundry-pg-server.herokuapp.com/userRegister/Signin",data).then((loginData)=>{
+axios.post("http://localhost:3001/userRegister/Signin",data).then((loginData)=>{
   localStorage.setItem("authorization",loginData.data.Authtoken) 
   // console.log(localStorage.getItem("authorization"))
 

@@ -8,7 +8,7 @@ const Alert =(props)=>{
    const Navigate=useNavigate()
     const DeleteOrder = (id)=>{
       // e.preventDefault();
-      axios.delete(`https://laundry-pg-server.herokuapp.com/order/cancel/${id}`).then(()=>{
+      axios.delete(`http://localhost:3001/order/cancel/${id}`).then(()=>{
         props.closeAlert(false);
         props.setSummary(false);
         if(!props.viewAlert && !props.summary){
